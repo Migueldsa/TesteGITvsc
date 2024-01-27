@@ -3,6 +3,25 @@
   padding: 0;
   box-sizing: border-box;
 }
+:root {
+  --text-color: white;
+  --bg-url: url(./assets/assets/bg-mobile.jpg);
+  --stroke-color: rgba(255, 255, 255, 0.5);
+  --surface-color: rgba(255, 255, 255, 0.1);
+  --surface-color-hover: rgba(255, 255, 255, 0.2);
+  --switch-bg-url: url(./assets/assets/moon-stars.svg);
+  --hover: rgba(255, 255, 255, 0.1);
+}
+
+.light {
+  --text-color: black;
+  --bg-url: url(./assets/assets/bg-desktop-light.jpg);
+  --stroke-color: rgba(0, 0, 0, 0.5);
+  --surface-color: rgba(0, 0, 0, 0.1);
+  --surface-color-hover: rgba(0, 0, 0, 0.2);
+  --switch-bg-url: url(./assets/assets/sun.svg);
+  --hover: rgba(0, 0, 0, 0.1);
+}
 body {
   /*
   background-image: url(./assets/assets/bg-mobile.jpg);
@@ -10,12 +29,12 @@ body {
   background-position: top center;
   background-size: cover;
   */
-  background: url(./assets/assets/bg-mobile.jpg) no-repeat top center/cover;
+  background: var(--bg-url) no-repeat top center/cover;
 }
 
 body * {
   font-family: "Inter", sans-serif;
-  color: #ffffff;
+  color: var(--text-color);
 }
 
 #container {
@@ -39,6 +58,46 @@ body * {
   margin-top: 8px;
 }
 
+#switch {
+  position: relative;
+  width: 64px;
+  margin: 4px auto;
+}
+.light #switch button {
+  animation: slide-in 0.4s forwards;
+}
+#switch button:hover {
+  outline: 8px solid var(--hover);
+}
+#switch button {
+  width: 32px;
+  height: 32px;
+  background: white var(--switch-bg-url) no-repeat center;
+  border: 0;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  z-index: 1;
+  left: 0;
+  transform: translateY(-50%);
+  animation: slide-back 0.2s;
+}
+
+.light #switch button {
+  right: 0;
+  left: initial;
+}
+#switch span {
+  display: block;
+  width: 64px;
+  height: 24px;
+  background: var(--surface-color);
+  border: 1px solid var(--stroke-color);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 9999px;
+}
+
 ul {
   list-style: none;
   display: flex;
@@ -48,12 +107,12 @@ ul {
 }
 
 ul li a {
-  border: 1px solid rgba(255, 255, 255, 0.5);
+  border: 1px solid var(--stroke-color);
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 16px 24px;
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--surface-color);
   border-radius: 8px;
 
   backdrop-filter: blur(4px);
@@ -63,8 +122,8 @@ ul li a {
 }
 
 ul li a:hover {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1.5px solid white;
+  background: var(--surface-color-hover);
+  border: 1.5px solid var(--text-color);
 }
 
 #social-links {
@@ -79,9 +138,28 @@ ul li a:hover {
   align-items: center;
   justify-content: center;
   padding: 16px;
+  transition: background 0.2;
+  border-radius: 50%;
 }
 
 #social-links a:hover {
   background: rgba(255, 255, 255, 0.2);
-  border-radius: 50%;
+}
+
+@keyframes slide-in {
+  from {
+    left: 0;
+  }
+  to {
+    left: 50%;
+  }
+}
+
+@keyframes slide-back {
+  from {
+    left: 50%;
+  }
+  to {
+    left: 0;
+  }
 }
